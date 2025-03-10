@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+{% load static %}
+{% block extra_css %}
+<style>
+    /* Single Post Styles */
+    #blog-title {
+        font-family: 'Almarai', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 40px;
+        color: #e91e63;
+        text-align: left;
+    }
+    
+    #blog-text {
+        font-family: 'Almarai', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 35px;
+        text-align: left;
+        color: #f5f5f5;
+    }
+
+    .post-details {
+        font-family: 'Almarai', sans-serif;
+        font-size: 18px;
+        color: #c0c0c0;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .post-details i {
+        color: #e91e63;
+    }
+
+    .img-fluid {
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    hr {
+        border-top: 1px solid #4a4a4a;
+    }
+
+    .related-articles h4 {
+        font-family: 'Almarai', sans-serif;
+        font-size: 20px;
+        color: #f5f5f5;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .related-articles a {
+        color: #e91e63;
+        text-decoration: none;
+    }
+
+    .related-articles a:hover {
+        text-decoration: underline;
+    }
+
+    .related-articles span {
+        font-size: 14px;
+        color: #c0c0c0;
+    }
+
+    .media-body h5 {
+        font-family: 'Almarai', sans-serif;
+        font-size: 20px;
+        color: #f5f5f5;
+        text-align: left;
+    }
+
+    .media-body p {
+        color: #c0c0c0;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .card {
+        background-color: #1e1e1e;
+        border: none;
+        border-radius: 10px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(90deg, #e91e63, #d81b60);
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-family: 'Almarai', sans-serif;
+        font-size: 16px;
+        border-radius: 30px;
+        transition: background 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(90deg, #d81b60, #c2185b);
+    }
+
+    .form-group label {
+        color: #f5f5f5;
+        font-family: 'Almarai', sans-serif;
+        font-size: 18px;
+    }
+
+    .form-control {
+        background-color: #2e2e2e;
+        color: #f5f5f5;
+        border-radius: 8px;
+        border: none;
+    }
+
+    .form-control:focus {
+        background-color: #2e2e2e;
+        color: #f5f5f5;
+        border-color: #e91e63;
+        box-shadow: none;
+    }
+</style>
+{% endblock %}
+
+{% block seo %}
+<meta name="description" content="{{ post.meta_description }}">
+<meta name="keywords" content="{{ post.meta_keywords }}">
+<meta property="og:title" content="{{ post.og_title }}">
+<meta property="og:description" content="{{ post.og_description }}">
+{% if post.og_image %}
+<meta property="og:image" content="{{ post.og_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ post.image.url }}">
+{% endif %}
+<meta property="og:type" content="{{ post.og_type }}">
+{% endblock %}
+
+{% block hero_section %}
+<div style="margin-top:100px;"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 id="blog-title">{{ post.title }}</h1>
+            <img src="{{ post.image.url }}" class="img-fluid mb-4 mt-4" alt="{{ post.title }}">
+            <p id="blog-text">{{ post.content|safe }}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-4">
+        <div class="col-12">
+            <h2 id="related-posts-h2">You may also like</h2>
+            <div class="related-articles">
+                {% for related_post in related_posts %}
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <img src="{{ related_post.image.url }}" class="img-fluid" alt="{{ related_post.title }}">
+                    </div>
+                    <div class="col-md-8">
+                        <h4><a href="{% url 'post_detail' related_post.pk %}">{{ related_post.title }}</a></h4>
+                        <span>Published on {{ related_post.publish_date|date:"d F Y" }}</span>
+                        <p>{{ related_post.content|truncatewords:30|safe }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <h2>Comments</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <div class="media mb-3">
+                            <i class="bi bi-person-circle mr-3" style="font-size: 2rem; color: #007bff;"></i>
+                            <div class="media-body">
+                                <h5 class="mt-0">{{ comment.name }}</h5>
+                                <p>{{ comment.content }}</p>
+                                <p class="text-muted"><small>{{ comment.created_at }}</small></p>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4 mb-5">
+        <div class="col-12">
+            <h2>Leave a Comment</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_name">Name</label>
+                            <input type="text" name="name" maxlength="255" class="form-control" id="id_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Email</label>
+                            <input type="email" name="email" class="form-control" id="id_email">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_content">Comment</label>
+                            <textarea name="content" cols="40" rows="10" class="form-control" id="id_content"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

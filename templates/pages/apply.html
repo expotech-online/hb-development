@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Apply for {{ job.name }} - HB Development{% endblock %}
+
+{% load static %}
+{% block seo %}
+    <meta name="description" content="Apply for the {{ job.name }} position at HB Development. Join our dynamic team and advance your career in technology and innovation. Submit your application today.">
+    <meta name="keywords" content="HB Development, apply for job, {{ job.name }}, career opportunities, technology jobs, professional jobs, tech careers">
+    <meta property="og:title" content="Apply for {{ job.name }} - HB Development">
+    <meta property="og:description" content="Apply for the {{ job.name }} position at HB Development. Join our dynamic team and advance your career in technology and innovation. Submit your application today.">
+    <meta property="og:image" content="{% static 'images/logo1.png' %}">
+    <meta property="og:type" content="website">
+    <meta name="author" content="HB Development">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ma-hb.com/">
+{% endblock %}
+
+{% block hero_section %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .apply-section {
+        background-color: #121212;
+        padding: 50px 0;
+    }
+
+    .form-container {
+        background-color: #1e1e1e;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-container .form-control {
+        background-color: #2e2e2e;
+        color: #f5f5f5;
+        border: 1px solid #4a4a4a;
+    }
+
+    .form-container .form-control:focus {
+        background-color: #2e2e2e;
+        color: #f5f5f5;
+        border-color: #e91e63;
+        box-shadow: none;
+    }
+
+    .form-container .btn-primary {
+        background-color: #e91e63;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+    }
+
+    .form-container .btn-primary:hover {
+        background-color: #d81b60;
+    }
+
+    .form-container .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-container label {
+        color: #f5f5f5;
+    }
+
+    .form-container .row > .col-md-6 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #e5e5e5;
+        background: linear-gradient(180deg, #3B3E40 0%, #141515 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #c0c0c0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="apply-section">
+    <div class="container">
+        <h2 class="section-title mb-4 text-center scroll-left">Apply for {{ job.name }}</h2>
+        <p class="section-subtitle mb-5 text-center scroll-right">Start your career journey with us by applying now.</p>
+
+        <div class="form-container scroll-left">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 scroll-left">
+                        <div class="form-group">
+                            {{ form.full_name.label_tag }}
+                            {{ form.full_name }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.phone.label_tag }}
+                            {{ form.phone }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.expected_salary.label_tag }}
+                            {{ form.expected_salary }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.work_hours.label_tag }}
+                            {{ form.work_hours }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 scroll-right">
+                        <div class="form-group">
+                            <label for="job">Job</label>
+                            <input type="text" id="job" class="form-control" value="{{ job.name }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            {{ form.cv_file.label_tag }}
+                            {{ form.cv_file }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.qualifications.label_tag }}
+                            {{ form.qualifications }}
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 scroll-left">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

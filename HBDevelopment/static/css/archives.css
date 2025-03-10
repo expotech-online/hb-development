@@ -1,0 +1,38 @@
+.card-body {
+    text-align: right;
+}
+.card-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 40px;
+    color: rgba(20, 27, 52, 0.8);
+}
+.card-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 30px;
+    color: rgba(20, 27, 52, 0.8);
+}
+.btn-link {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+.btn-link:hover {
+    text-decoration: underline;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.step-links a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+}
+.step-links .current {
+    margin: 0 5px;
+}

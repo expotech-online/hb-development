@@ -1,0 +1,658 @@
+{% extends "base.html" %}
+
+{% block title %}HB Development - Excellence in Technology Services{% endblock %}
+{% load static %}
+{% block extra_css %}
+<style>
+/* Services Section Styles */
+.services-section {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e5e5e5;
+    background: linear-gradient(180deg, #3B3E40 0%, #141515 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+/* Ensure the row is a flex container */
+.services-section .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Centers cards and handles spacing */
+}
+
+/* Standardize size and spacing of each service card */
+.service-card {
+    flex: 0 0 calc(33.333% - 2rem); /* Flex-basis calculated with gutter */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1e1e1e;
+    border: none;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+    height: 350px; /* Uniform height */
+    overflow: hidden; /* Prevents content from spilling out */
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-icon img {
+    width: 40px;
+    height: 40px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.card-text {
+    color: #c0c0c0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .service-card {
+        flex-basis: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px;
+    }
+
+    .section-title, .section-subtitle {
+        text-align: center; /* Center titles on smaller screens */
+    }
+
+    .section-title {
+        font-size: 2rem; /* Smaller font size for smaller screens */
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+}
+
+
+/* Vision Section Styles */
+.vision-section {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e5e5e5;
+    margin-bottom: 1rem;
+}
+
+.vision-text {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+.vision-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    position: relative;
+}
+
+.vision-quote {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: #f5f5f5;
+    font-style: italic;
+    margin: 0;
+}
+
+.vision-card:before {
+    content: "“";
+    font-size: 3rem;
+    color: #e91e63;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+}
+
+.vision-card:after {
+    content: "”";
+    font-size: 3rem;
+    color: #e91e63;
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .vision-section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .vision-text {
+        font-size: 1rem;
+    }
+
+    .vision-quote {
+        font-size: 1.25rem;
+    }
+}
+
+/* Team Section Styles */
+.team-section {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e5e5e5;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+.team-card {
+    background-size: cover;
+    background-position: center;
+    border: none;
+    border-radius: 10px;
+    height: 350px; /* Set the height for the card */
+    position: relative;
+    transition: transform 0.3s ease;
+    color: #f5f5f5;
+}
+
+.team-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    border-radius: 10px;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-body-teams {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    padding: 1.5rem;
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: left; /* Align text to the left */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f5f5f5;
+    margin-top: 0;
+}
+
+.card-text {
+    color: #c0c0c0;
+    margin-bottom: 1rem;
+}
+
+.social-icons {
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: #f5f5f5;
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #e91e63;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .team-card {
+        margin-bottom: 2rem;
+        height: 300px; /* Adjust height for smaller screens */
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* Contact Section Styles */
+.contact-section {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e5e5e5;
+    margin-bottom: 1rem;
+}
+
+.contact-text {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+.contact-form .form-control {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #e5e5e5;
+    border-radius: 0;
+    color: #f5f5f5;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.contact-form .form-control:focus {
+    box-shadow: none;
+    border-bottom: 2px solid #e91e63;
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+.contact-form .btn-primary {
+    background-color: #e91e63;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0;
+}
+
+.contact-form .btn-primary:hover {
+    background-color: #d81b60;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .contact-text {
+        font-size: 1rem;
+    }
+}
+
+.service-card .card-body {
+    text-align: left;
+}
+
+.stats-section {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e5e5e5;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+    margin-bottom: 2rem;
+}
+
+/* Styling the circular background behind the icons */
+.icon-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #1e1e1e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.stat-label {
+    font-size: 1.25rem;
+    color: #c0c0c0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block seo %}
+<meta name="description" content="HB Development specializes in providing high-quality technology services. Join us to experience excellence, professionalism, and innovation.">
+<meta name="keywords" content="HB Development, technology services, IT solutions, professional technology services, tech innovation">
+<meta property="og:title" content="HB Development - Excellence in Technology Services">
+<meta property="og:description" content="HB Development specializes in providing high-quality technology services. Join us to experience excellence, professionalism, and innovation.">
+<meta property="og:image" content="{% static 'images/logo1.png' %}">
+<meta property="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+
+<!-- Services Section -->
+<section class="services-section py-5" id="our-services">
+    <div class="container text-center">
+        <h2 class="section-title mb-4 scroll-left">Our Services</h2> <!-- Title scrolls in from the left -->
+        <p class="section-subtitle mb-5 scroll-right">Our services include various fields of technology.</p> <!-- Subtitle scrolls in from the right -->
+        
+        <div class="row">
+            <!-- Mobile and Web Applications -->
+            <div class="col-md-6 col-lg-4 scroll-left"> <!-- Card scrolls in from the left -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/mobile-service.png' %}" alt="Mobile and Web Applications">
+                        </div>
+                        <h5 class="card-title">Mobile and Web Applications</h5>
+                        <p class="card-text">Our expert team delivers tailored mobile and web application solutions to enhance user experiences and boost operational efficiency.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diverse Products and Services -->
+            <div class="col-md-6 col-lg-4 scroll-right"> <!-- Card scrolls in from the right -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/products-service.png' %}" alt="Diverse Products and Services">
+                        </div>
+                        <h5 class="card-title">Diverse Products and Services</h5>
+                        <p class="card-text">We offer a variety of products and services to support your business’s growth and innovation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Marketing -->
+            <div class="col-md-6 col-lg-4 scroll-left"> <!-- Card scrolls in from the left -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/markting-service.png' %}" alt="Digital Marketing">
+                        </div>
+                        <h5 class="card-title">Digital Marketing</h5>
+                        <p class="card-text">We offer a seamless digital shopping experience, enhancing your online store or digital presence with our comprehensive digital marketing services.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Management -->
+            <div class="col-md-6 col-lg-4 scroll-right"> <!-- Card scrolls in from the right -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/social-service.png' %}" alt="Social Media Management">
+                        </div>
+                        <h5 class="card-title">Social Media Management</h5>
+                        <p class="card-text">Our team ensures that your social media presence is optimized to engage your audience effectively.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO/SEA -->
+            <div class="col-md-6 col-lg-4 scroll-left"> <!-- Card scrolls in from the left -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/seo-service.png' %}" alt="SEO/SEA">
+                        </div>
+                        <h5 class="card-title">Référencement SEO/SEA</h5>
+                        <p class="card-text">We help you elevate your online visibility, driving targeted traffic and boosting your digital presence.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Buying -->
+            <div class="col-md-6 col-lg-4 scroll-right"> <!-- Card scrolls in from the right -->
+                <div class="card service-card">
+                    <div class="card-body">
+                        <div class="service-icon mb-3">
+                            <img src="{% static 'images/icons/media-service.png' %}" alt="Media Buying">
+                        </div>
+                        <h5 class="card-title">Media Buying</h5>
+                        <p class="card-text">We strategically allocate your resources to optimize results, maximizing ROI and achieving your marketing goals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision Section -->
+<section class="vision-section py-5" id="our-vision">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 scroll-left"> <!-- Comes from the left -->
+                <h2 class="section-title">Our Vision</h2>
+                <p class="vision-text">HB Development aims to deliver innovative and effective technology services that boost our clients' performance and enhance their global competitiveness. We view technology as a driving force for progress and focus on providing tailored, creative solutions to meet our clients' technological challenges.</p>
+            </div>
+            <div class="col-lg-6 text-center scroll-right"> <!-- Comes from the right -->
+                <img style="border-radius:5px; width:300px; height:350px;" src="{% static 'images/card.png' %}" alt="Hero Image" class="hero-image pl-5">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section py-5" id="stats">
+    <div class="container text-center">
+        <h2 class="section-title scroll-left">We Deliver Digital Productivity</h2>
+        <p class="section-subtitle scroll-right">We craft technology solutions that digitally bond and transform the productivity of our customers and their citizens, workers, consumers, and partners.</p>
+
+        <div class="row mt-5">
+            <!-- Employees -->
+            <div class="col-6 col-md-3 scroll-left">
+                <div class="stat-icon mb-3">
+                    <div class="icon-circle">
+                        <img src="{% static 'images/icons/employee-icon.png' %}" alt="Employees Icon" width="40">
+                    </div>
+                </div>
+                <h3 class="stat-number">600</h3>
+                <p class="stat-label">Employees</p>
+            </div>
+
+            <!-- Global Offices -->
+            <div class="col-6 col-md-3 scroll-right">
+                <div class="stat-icon mb-3">
+                    <div class="icon-circle">
+                        <img src="{% static 'images/icons/global-office-icon.png' %}" alt="Global Offices Icon" width="40">
+                    </div>
+                </div>
+                <h3 class="stat-number">8</h3>
+                <p class="stat-label">Global Offices</p>
+            </div>
+
+            <!-- Partners -->
+            <div class="col-6 col-md-3 scroll-left">
+                <div class="stat-icon mb-3">
+                    <div class="icon-circle">
+                        <img src="{% static 'images/icons/partners-icon.png' %}" alt="Partners Icon" width="40">
+                    </div>
+                </div>
+                <h3 class="stat-number">21+</h3>
+                <p class="stat-label">Partners</p>
+            </div>
+
+            <!-- Countries -->
+            <div class="col-6 col-md-3 scroll-right">
+                <div class="stat-icon mb-3">
+                    <div class="icon-circle">
+                        <img src="{% static 'images/icons/countries-icon.png' %}" alt="Countries Icon" width="40">
+                    </div>
+                </div>
+                <h3 class="stat-number">24+</h3>
+                <p class="stat-label">Countries</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Team Section -->
+<section class="team-section py-5" id="our-teams">
+    <div class="container text-center">
+        <h2 class="section-title mb-4 scroll-left">Our Team</h2> <!-- Comes from the left -->
+        <p class="section-subtitle mb-5 scroll-right">Meet our passionate team, turning your vision into reality.</p> <!-- Comes from the right -->
+        
+        <div class="row justify-content-center">
+            <div class="col-md-3 scroll-left"> <!-- Comes from the left -->
+                <div class="card team-card" style="background-image: url({% static 'images/teams/Alhassan Mabrouk.jpeg' %});">
+                    <div class="card-body-teams text-start">
+                        <h5 class="card-title">Alhassan Mabrouk</h5>
+                        <p class="card-text">Project Manager</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 scroll-right"> <!-- Comes from the right -->
+                <div class="card team-card" style="background-image: url({% static 'images/teams/Harouni brahim.jpeg' %});">
+                    <div class="card-body-teams text-start">
+                        <h5 class="card-title">Harouni brahim</h5>
+                        <p class="card-text">Co. Founder</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 scroll-left"> <!-- Comes from the left -->
+                <div class="card team-card" style="background-image: url({% static 'images/teams/Hassan Billali.jpeg' %});">
+                    <div class="card-body-teams text-start">
+                        <h5 class="card-title">Hassan Billali</h5>
+                        <p class="card-text">Co. Founder</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 scroll-left"> <!-- Comes from the left -->
+                <div class="card team-card" style="background-image: url({% static 'images/teams/27.jpg' %});">
+                    <div class="card-body-teams text-start">
+                        {% comment %} <h5 class="card-title">Hassan Billali</h5>
+                        <p class="card-text">Co. Founder</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Us Section -->
+<section class="contact-section py-5" id="contact-us">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 scroll-left"> <!-- Comes from the left -->
+                <h2 class="section-title">Contact Us</h2>
+                <p class="contact-text">Feel free to contact us and we will get back to you as soon as we can.</p>
+            </div>
+            <div class="col-md-6 scroll-right"> <!-- Comes from the right -->
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.message.label_tag }}
+                        {{ form.message }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} {% block footer %}
+{% endblock %} {% endcomment %}
+{% endblock %}
+{% block extra_js %}
+<!-- Leaflet.js CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Leaflet.js JavaScript -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="{% static 'js/accueil.js' %}"></script>
+{% endblock %}

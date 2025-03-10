@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Archive{% endblock %}
+
+{% block hero_section %}
+{% endblock %}
+
+{% block seo %}
+    <meta name="description" content="Explore insightful articles, tips, and updates from HB Development. Stay informed about industry trends, innovations, and success stories.">
+    <meta name="keywords" content="HB Development blog, industry insights, innovation, success stories, technology trends, HB updates, articles">
+    <meta property="og:title" content="HB Development Blog - Insights and Updates">
+    <meta property="og:description" content="Dive into the latest blogs from HB Development. Learn about our innovative solutions, industry achievements, and impactful trends.">
+    <meta property="og:image" content="{% static 'images/blog_logo.png' %}">
+    <meta property="og:type" content="website">
+    <meta name="author" content="HB Development">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ma-hb.com/blogs/">
+{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+<style>
+    /* Blog Section Styles */
+    .blogs-section {
+        background-color: #121212;
+        color: #f5f5f5;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #e5e5e5;
+        background: linear-gradient(180deg, #3B3E40 0%, #141515 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #c0c0c0;
+    }
+
+    .blog-card {
+        background-color: #1e1e1e;
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        color: #f5f5f5;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #f5f5f5;
+        margin-top: 0;
+    }
+
+    .card-text {
+        color: #c0c0c0;
+        margin-bottom: 1rem;
+    }
+
+    .btn-link {
+        color: #e91e63;
+        font-size: 1rem;
+        text-decoration: none;
+        padding-left: 0;
+    }
+
+    .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .blog-card {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+        }
+    }
+    /* Pagination Styles */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 8px 16px;
+        color: #f5f5f5;
+        background-color: #1e1e1e;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .pagination .active {
+        background-color: #e91e63;
+    }
+
+    .pagination a:hover {
+        background-color: #d81b60;
+    }
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .custom-dropdown select {
+        background-color: #212121; /* Dark background */
+        color: #ffffff; /* White text */
+        border-radius: 8px; /* Rounded corners */
+        border: none; /* Remove borders */
+        padding: 10px 20px;
+        font-size: 16px;
+        width: 100%; /* Full width */
+        appearance: none; /* Remove default arrow */
+        cursor: pointer;
+    }
+    
+    .custom-dropdown::after {
+        content: '\25BC'; /* Down arrow */
+        font-size: 12px;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #ffffff; /* White arrow */
+    }
+    
+    .custom-dropdown select:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    
+</style>
+{% endblock %}
+
+{% block content %} 
+<section class="blogs-section py-5">
+    <div class="container">
+        <h2 class="section-title mb-4 text-center scroll-left">Blog Archive</h2> <!-- Comes from the left -->
+        <p class="section-subtitle mb-5 text-center scroll-right">Explore our latest blog posts and updates.</p> <!-- Comes from the right -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <form method="get">
+                    <div class="form-group custom-dropdown">
+                        <select class="form-control" id="category" name="category" onchange="this.form.submit()">
+                            <option value="">All Categories</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>        
+        <div class="row">
+            {% for post in page_obj %}
+            <div class="col-md-4 scroll-left"> <!-- Comes from the left -->
+                <div class="card blog-card">
+                    <div style="width: 100%; height: 200px; overflow: hidden;">
+                        <a href="{% url 'post_detail' post.pk %}">
+                            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'post_detail' post.pk %}">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ post.content|truncatewords:20|safe }}</p>
+                        <a href="{% url 'post_detail' post.pk %}" class="btn btn-link">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination scroll-right"> <!-- Comes from the right -->
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

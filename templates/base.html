@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="8NlyYflh0n6yAvFlzHifY29KnTscnQ0bP-STQ991iPI" />
+    <title>{% block title %}HB Development - Excellence in Technology Services{% endblock %}</title>
+    {% load static %}
+    {% block seo %}
+    <meta name="description" content="HB Development specializes in providing high-quality technology services. Join us to experience excellence, professionalism, and innovation.">
+    <meta name="keywords" content="HB Development, technology services, IT solutions, professional technology services, tech innovation">
+    <meta property="og:title" content="HB Development - Excellence in Technology Services">
+    <meta property="og:description" content="HB Development specializes in providing high-quality technology services. Join us to experience excellence, professionalism, and innovation.">
+    <meta property="og:image" content="{% static 'images/logo1.png' %}">
+    <meta property="og:type" content="website">
+    <meta name="author" content="HB Development">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ma-hb.com/">
+    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="icon" href="{% static 'images/logo1.png' %}" type="image/svg+xml">
+    {% block extra_css %}{% endblock %}
+    <style>
+        html, body {
+            overflow-x: hidden;
+        }
+        
+       /* General Styles */
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'poppins', sans-serif;
+        }
+
+        /* Header Styles */
+        .navbar {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .navbar-nav {
+            justify-content: start;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: #ffffff;
+        }
+
+        .nav-link:hover {
+            color: #e91e63;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-nav {
+                justify-content: center;
+                padding: 10px 0;
+            }
+        }
+
+        /* Hero Section Styles */
+        .hero-section {
+            height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .display-4 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+
+        .btn-primary-1 {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #FFFFFF;
+            border-radius: 4px;
+            color: #fff;
+            z-index: 10;
+            position: relative;
+        }
+
+        .btn-primary-1:hover {
+            background-color: #d81b60;
+        }
+
+        /* Adjustments for smaller screens */
+        @media (max-width: 992px) {
+            .col-lg-7 {
+                width: 100%; /* Full width on smaller screens */
+                text-align: center;
+                padding: 20px;
+            }
+
+            .hero-section {
+                height: 100vh; /* Adjust hero section height */
+            }
+
+            .display-4 {
+                font-size: 2rem;
+            }
+
+            #text-hero {
+                font-size: 25px;
+            }
+
+            #section-hero {
+                margin-top: 30px;
+            }
+        }
+
+        /* Adjust logo and toggle button for phone screens */
+        @media (max-width: 576px) {
+            /* Add spacing to the left of the logo */
+            .navbar .navbar-brand {
+                padding-left: 15px;  /* Add left padding to the logo */
+            }
+
+            /* Add spacing to the right of the toggle button */
+            .navbar .navbar-toggler {
+                margin-right: 15px;  /* Add right margin to the toggle button */
+            }
+            .navbar-nav .nav-item {
+                padding-left: 20px;  /* Add left padding to menu items */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                height: 50vh;
+            }
+
+            .display-4 {
+                font-size: 1.5rem;
+            }
+
+            .col-lg-7 {
+                padding: 10px;
+            }
+        }
+
+        /* Center section and content on phones */
+        @media (max-width: 576px) {
+            #section-hero {
+                text-align: center !important; /* Center text and content on phone */
+                padding-left: 0 !important; /* Remove left padding */
+            }
+
+            #section-hero h2, 
+            #section-hero .btn-primary-1 {
+                margin: 0 auto; /* Center the h2 and button */
+                display: inline-block; /* Ensure centering works */
+            }
+
+            .pl-5 {
+                padding-left: 0 !important; /* Remove extra padding on smaller screens */
+            }
+        }
+
+        /* Footer Section Styles */
+        .footer-section {
+            background-color: #121212;
+            color: #f5f5f5;
+            padding: 30px 0;
+        }
+
+        .footer-logo .brand-initials {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #e91e63;
+        }
+
+        .footer-links a {
+            color: #c0c0c0;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: #e91e63;
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact li {
+            color: #c0c0c0;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .footer-contact a {
+            color: #c0c0c0;
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            color: #e91e63;
+        }
+
+        .subscription-form .input-group {
+            display: flex;
+        }
+
+        .subscription-form .form-control {
+            background-color: #1e1e1e;
+            border: none;
+            color: #f5f5f5;
+            border-radius: 0;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .subscription-form .form-control::placeholder {
+            color: #c0c0c0;
+        }
+
+        .subscription-form .btn-subscribe {
+            background-color: #e91e63;
+            border: none;
+            color: #f5f5f5;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .subscription-form .btn-subscribe i {
+            margin-right: 0.5rem;
+        }
+
+        .subscription-form .btn-subscribe:hover {
+            background-color: #d81b60;
+        }
+
+        .footer-social-icons a {
+            color: #f5f5f5;
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social-icons a:hover {
+            color: #e91e63;
+        }
+
+        .footer-copyright {
+            color: #c0c0c0;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-logo .brand-initials {
+                font-size: 2rem;
+            }
+
+            .footer-heading {
+                font-size: 1.125rem;
+            }
+
+            .footer-links a,
+            .footer-contact li,
+            .footer-contact a {
+                font-size: 0.875rem;
+            }
+
+            .subscription-form .form-control,
+            .subscription-form .btn-subscribe {
+                font-size: 0.875rem;
+            }
+
+            .footer-social-icons a {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-section .row > div {
+                margin-bottom: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes slide-in-left {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slide-in-right {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .scroll-left {
+            opacity: 0;
+            animation: slide-in-left 1s forwards;
+        }
+
+        .scroll-right {
+            opacity: 0;
+            animation: slide-in-right 1s forwards;
+        }
+
+        /* Adjust animations for mobile */
+        @media (max-width: 768px) {
+            .scroll-left,
+            .scroll-right {
+                animation-duration: 1.5s;
+            }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            
+        }
+        
+        .whatsapp-icon {
+            font-size: 40px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover{
+            text-decoration:none;
+            background-color: 0D7C66;
+        }
+
+        .whatsapp-icon:hover{
+            text-decoration:none;
+            background-color: 0D7C66;
+        }
+        
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 25px;
+                right: 25px;
+            }
+            
+            .whatsapp-icon {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 20px;
+                right: 20px;
+            }
+        
+            .whatsapp-icon {
+                font-size: 30px;
+            }
+        }
+        
+        .footer-links a:hover, .footer-links a.active {
+            color: #EC267FE5 !important;  /* Set hover and active color */
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #EC267FE5 !important;  /* Set hover and active color */
+        }
+        
+        
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark mt-3">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img style="width:40px; height:40px;" src="{% static 'images/logo2.png' %}" alt="Hero Image" class="hero-image">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}#our-vision">Vision</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}#our-services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}#our-teams">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'jobs' %}">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'achievements' %}">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'archive' %}">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}#contact-us">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    {% block hero_section %}
+    <section class="hero-section d-flex align-items-center">
+        <video autoplay muted loop id="hero-video" class="video-background">
+            <source src="{% static 'videos/hero-background.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 scroll-left d-none d-lg-block">
+                    <img style="border-radius:5px; width:350px; height:400px;" src="{% static 'images/hero1.png' %}" alt="Hero Image" class="hero-image pl-5">
+                </div>                
+                <div class="col-lg-7 text-lg-end pl-5 scroll-right" id="section-hero">
+                    <h2 class="card-title display-4" 
+                    style="background: linear-gradient(180deg, #3B3E40 0%, #141515 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                            text-fill-color: transparent;">
+                            <span class="pl-5">HB</span> Development</h2>
+                    <h2 class="display-4" id="text-hero">Specialized in providing<br>high-quality technology services</h2>
+                    <a href="{% url 'home' %}#our-services" class="btn btn-primary-1 mt-4">Show more</a>
+                </div>                
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+
+
+    <!-- Main Content -->
+    <main role="main" class="container mt-4" style="font-family: 'poppins', sans-serif;">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer Section -->
+    {% block footer %}
+    <footer class="footer-section py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1 scroll-left"> <!-- Comes from left -->
+                    <div class="footer-logo mb-3">
+                        <img style="width:40px; height:40px;" src="{% static 'images/logo2.png' %}" alt="Hero Image" class="hero-image">
+                    </div>    
+                </div>
+                <div class="col-md-2 scroll-left"> <!-- Comes from left -->
+                    <h5 class="footer-heading">Direct Links</h5>
+                    <ul class="footer-links list-unstyled">
+                        <a class="" href="{% url 'home' %}#our-vision">Vision</a>
+                        <a class="" href="{% url 'home' %}#our-services">Services</a>
+                        <a class="" href="{% url 'home' %}#our-teams">Team</a>
+                        <a class="" href="{% url 'jobs' %}">Jobs</a>
+                        <a class="" href="{% url 'achievements' %}">Achievements</a>
+                        <a class="" href="{% url 'archive' %}">Blogs</a>
+                        <a class="" href="{% url 'home' %}#contact-us">Contact Us</a>
+                    </ul>
+                </div>
+                <div class="col-md-5 scroll-right"> <!-- Comes from right -->
+                    <h5 class="footer-heading">Contact</h5>
+                    <ul class="footer-contact list-unstyled">
+                        <li>Location: Mezanine block B Office n° 4 BOROUJ 16 Avenue des Far N° 873 Tétouan, Morocco</li>
+                        <li>Email: <a href="mailto:contact@ma-hb.com">contact@ma-hb.com</a></li>
+                        <li>Phone: <a href="tel:+212657396706">+212 657 396 706</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 scroll-right"> <!-- Comes from right -->
+                    <!-- Subscription Form in Footer -->
+                    <form method="POST" action="{% url 'subscribe' %}" class="subscription-form mb-3">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            <button class="btn btn-subscribe" type="submit">
+                                <i class="fas fa-paper-plane"></i> Subscribe
+                            </button>
+                        </div>
+                    </form>
+                    <div class="footer-social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=61565733896282&mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 scroll-left"> <!-- Comes from left -->
+                <div class="col-12 text-center">
+                    <p class="footer-copyright">© HB Development. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    {% endblock %}
+
+    <a href="https://wa.me/+212665667956?text=Hello%20HB%20Development!%20I%20am%20interested%20in%20learning%20more%20about%20your%20technology%20services.%20Please%20provide%20me%20with%20further%20details." 
+        class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% load static %}
+    <script src="{% static 'js/base.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const elementsLeft = document.querySelectorAll('.scroll-left');
+            const elementsRight = document.querySelectorAll('.scroll-right');
+    
+            function elementInView(element) {
+                const elementTop = element.getBoundingClientRect().top;
+                const viewportHeight = window.innerHeight;
+                return elementTop <= viewportHeight;
+            }
+    
+            function animateOnScroll() {
+                elementsLeft.forEach(el => {
+                    if (elementInView(el)) {
+                        el.classList.add('in-view');
+                    }
+                });
+    
+                elementsRight.forEach(el => {
+                    if (elementInView(el)) {
+                        el.classList.add('in-view');
+                    }
+                });
+            }
+    
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initial check if elements are in view
+        });
+    </script>
+    
+</body>
+</html>

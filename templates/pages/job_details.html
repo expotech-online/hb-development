@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job.name }} - HB Development - Career Opportunities{% endblock %}
+{% load static %}
+{% block seo %}
+<meta name="description" content="{{ job.meta_description }}">
+<meta name="keywords" content="{{ job.meta_keywords }}">
+<meta property="og:title" content="{{ job.og_title }}">
+<meta property="og:description" content="{{ post.og_description }}">
+<meta name="author" content="HB Development">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.ma-hb.com/">
+{% if post.og_image %}
+<meta property="og:image" content="{{ job.og_image.url }}">
+{% else %}
+<meta property="og:image" content="{{ job.image.url }}">
+{% endif %}
+<meta property="og:type" content="{{ job.og_type }}">
+{% endblock %}
+
+{% block hero_section %}
+{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+<style>
+    /* Jobs Section Styles */
+    .jobs-section {
+        background-color: #121212;
+        color: #f5f5f5;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #e5e5e5;
+        background: linear-gradient(180deg, #3B3E40 0%, #141515 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+    }
+    
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #c0c0c0;
+    }
+
+    .btn-primary-1 {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid #FFFFFF;
+        border-radius: 4px;
+        color:#fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #d81b60;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+        }
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="jobs-section py-5">
+    <div class="container">
+        <h2 class="section-title mb-4 text-left scroll-left">{{ job.name }}</h2> <!-- Applied slide-in-left animation -->
+        <h3 class="mt-4 scroll-right">Job Description:</h3> <!-- Applied slide-in-right animation -->
+        <p class="section-subtitle mb-5 text-left scroll-right">{{ job.description|safe }}</p>
+        <hr style="background-color:#6A6A6D;">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="col-md-3 text-center scroll-left">
+                <strong>Experience Required</strong>
+                <p>{{ job.experience_required }}</p>
+            </div>
+            <div class="col-md-3 text-center scroll-right">
+                <strong>Seniority Level</strong>
+                <p>{{ job.seniority_level }}</p>
+            </div>
+            <div class="col-md-3 text-center scroll-left">
+                <strong>Employment Type</strong>
+                <p>{{ job.get_job_time_display }}</p>
+            </div>
+            <div class="col-md-3 text-center scroll-right">
+                <strong>Location</strong>
+                <p>{{ job.location }}</p>
+            </div>
+        </div>
+        
+        <h3 class="mt-4 scroll-left">Role Overview:</h3>
+        <p class="scroll-right">{{ job.role_overview|safe }}</p>
+        <h3 class="mt-4 scroll-left">Duties and Responsibilities:</h3>
+        <p class="scroll-right">{{ job.duties_responsibilities|linebreaksbr|safe }}</p>
+
+        <div class="mt-4 scroll-left">
+            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-primary-1">Apply Now</a>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
