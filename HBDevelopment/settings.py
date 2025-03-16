@@ -11,12 +11,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cu79y*(x3g(9#%by97d_zs+etgmv-a)rh3#rx6@)fykvpji-l_'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['www.ma-hb.com', 'ma-hb.com']
 
 HANDLER404 = 'pages.views.custom_404'
 
@@ -75,16 +75,14 @@ WSGI_APPLICATION = 'HBDevelopment.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Use MySQL backend
-        'NAME': 'hb-development',                       # Database name
-        'USER': 'root',                       # Default MySQL user
-        'PASSWORD': '135790521Mm@',           # Leave blank if no password
-        'HOST': 'localhost',                  # Server location
-        'PORT': '3306',                       # Default MySQL port
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME', 'hb-development'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', '135790521Mm@'),
+        'HOST': os.getenv('DB_HOST', 'hb-db-svc.hb.svc.cluster.local'),  #use 127.0.0.1 for localhost
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -147,3 +145,6 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'majidsakr86@gmail.com'
 EMAIL_HOST_PASSWORD = 'woyw ilce nibj ufde'
 ADMIN_EMAIL = 'contact@ma-hb.com'
+
+from dotenv import load_dotenv
+load_dotenv() 
