@@ -17,7 +17,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['ma-hb.com', 'www.ma-hb.com']
-CSRF_TRUSTED_ORIGINS = ['https://www.ma-hb.com', 'www.ma-hb.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.ma-hb.com']
+
 HANDLER404 = 'pages.views.custom_404'
 
 
